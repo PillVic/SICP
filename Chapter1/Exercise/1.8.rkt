@@ -1,0 +1,15 @@
+#lang racket
+(define (cbrt guess x)
+  (define (my-abs x)
+    (if (< x 0)
+        (- x)
+        x))
+  (define (good-enough? guess x)
+    (< (my-abs (- (* guess guess guess) x)) 0.001))
+  (define (improve guess x)
+    (/ (+ (* 2 guess) (/ x (* guess guess))) 3))
+  (define (cbrt-iter guess x)
+    (if (good-enough? guess x)
+        guess
+        (cbrt-iter (improve guess x) x)))
+  (cbrt-iter 1 x))

@@ -1,0 +1,17 @@
+#lang sicp
+
+;;;;;iteration style
+(define (cont-frac-iter n d k)
+  (define (iter step result)
+    (if (> step k)
+        result
+        (iter (+ step 1) (/ n (+ d result)))))
+  (iter 1 (/ n d)))
+;;;;;;;;recursive style
+(define (cont-frac-recur n d k)
+  (if (= k 1)
+      (/ n d)
+      (/ n (+ d (cont-frac-recur n d (- k 1))))))
+
+(cont-frac-iter 1 1 13)
+(cont-frac-iter 1 1 14)  

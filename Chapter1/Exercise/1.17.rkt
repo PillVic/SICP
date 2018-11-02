@@ -1,0 +1,13 @@
+#lang racket
+(define (product a b)
+  (define (even? a)
+    (= (remainder a 2) 2))
+  (define (halve a)
+    (/ a 2))
+  (define (double a)
+    (+ a a))
+  (cond ((= a 0) 0)
+        ((= a 1) b)
+        (else (if (even? a)
+                  (product (halve a) (double b))
+                  (+ (product (- a 1) b) b)))))

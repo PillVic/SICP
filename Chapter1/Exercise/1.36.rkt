@@ -1,0 +1,21 @@
+#lang sicp
+
+(define tolerance 0.01)
+
+(define (fix-point f first-guess)
+  (define (close-enough? v1 v2)
+    (< (abs (- v1 v2)) tolerance))
+  (define (try guess)
+    (let ((next (* (/ 1 2) (+ (f guess) (/ guess (f guess))))))
+      (cond ((close-enough? guess next) next)
+            (else
+             (display next)
+             (newline)
+             (try next)))))
+  (try first-guess))
+
+(define (f x)
+  (/ (log 1000) (log x)))
+
+(fix-point f 100)
+

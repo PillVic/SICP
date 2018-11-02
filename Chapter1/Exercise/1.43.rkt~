@@ -1,0 +1,21 @@
+#lang racket
+
+
+(define compose
+  (lambda (f g)
+    (lambda (x)
+      (f (g x)))))
+
+(define (repeate f time)
+  (define (iter t f time)
+    (cond ((= time 0) t)
+          ((= (remainder time 2) 0)
+           (iter t (compose f f) (/ time 2)))
+          (else
+           (iter (compose t f) f (- time 1)))))
+  (iter (lambda (x) x) f time))
+
+(define (square x)
+  (* x x))
+
+((repeate square 2) 5)

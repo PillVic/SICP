@@ -1,0 +1,14 @@
+#lang racket
+
+(define (simpson f a b n)
+  (define h (/ (- b a) 3))
+  (define (y k)
+    (f (+ a (* k h))))
+  (define (sf-iter y step n t)
+    (if (>= step n)
+        t
+        (sf-iter y (+ step 2) n (+ t(+ (* 4 (y step)) (* 2 (y (+ step 1))))))))
+  (* (/ h 3) (+ (y 0) (y n) (sf-iter y 1 n 0))))
+
+(define (cube x)
+  (* x x x))
