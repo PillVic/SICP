@@ -1,0 +1,7 @@
+#lang sicp
+
+(define deep-reverse
+  (lambda (t)
+    (if (pair? t)
+        (cons (cdr t) (car t))
+        t)))
