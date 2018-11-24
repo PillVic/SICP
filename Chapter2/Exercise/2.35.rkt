@@ -8,7 +8,15 @@
 ;;;;;
 
 (define (count-leaves t)
-  (accumulate 
+  (accumulate +
+              0
+              (map (lambda (subtree)
+                     (if [pair? subtree]
+                         (count-leaves subtree)
+                         1))
+                   t)))
+                     
+   
 ;;;;;;;;;;test
 
 (define x `((1 2) 3 4))
