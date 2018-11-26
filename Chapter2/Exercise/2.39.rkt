@@ -1,5 +1,4 @@
-
-#lang sicp
+#lang racket
 
 (define (accumulate op initial sequence)
   (if [null? sequence]
@@ -17,12 +16,21 @@
               (cdr rest))))
   (iter initial sequence))
 
-;;;
-(fold-right / 1 (list 1 2 3))
-(fold-left / 1 (list 1 2 3))
-(fold-right list nil (list 1 2 3))
-(fold-left list nil (list 1 2 3))
+;;;;;;;;;;;
 
+
+(define (reverse-l sequence)
+  (fold-left (lambda (x y) (cons y x)) null sequence))
+
+(define (reverse-r sequence)
+  (fold-right (lambda (x y)
+                (append y
+                        (list x)))
+              `()
+              sequence))
+;;;;
+(reverse-l (list 1 2 3 4))
+(reverse-r (list 1 2 3 4))
 
 
 
