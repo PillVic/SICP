@@ -21,5 +21,9 @@
 
 ;list implementation?
 
-(define (edge2-frame frame)
+(define (edge2-frame-list frame)
   (caddr frame))
+
+;decide cons pairs as the implementation?
+
+(define make-frame make-fr)
