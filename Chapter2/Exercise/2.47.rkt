@@ -2,6 +2,8 @@
 
 ;include the necessary file
 
+(provide  origin-frame edge1-frame edge2-frame)
+
 (define (make-fr origin edge1 edge2)
   (cons origin (cons edge1 edge2)))
 
