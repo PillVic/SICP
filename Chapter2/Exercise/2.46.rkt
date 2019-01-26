@@ -1,5 +1,7 @@
 #lang racket
 
+(provide  add-vect sub-vect scale-vect xcor-vect ycor-vect)
+
 (define (make-vect x y)
   (cons x y))
 
@@ -31,3 +33,4 @@
 (define v2 (scale-vect 3 v1))
 (display (add-vect v1 v2))
 (display (sub-vect v1 v2))
+(newline)
