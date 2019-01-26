@@ -2,6 +2,8 @@
 
 ;implement set by sorted list
 
+(provide element-of-set? intersection-set)
+
 (define (element-of-set? x set)
   (cond ([null? set] false)
         ((= x (car set)) true)
