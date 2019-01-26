@@ -5,11 +5,6 @@
 
 (define eins einstein)
 
-
-(define einstein2 (beside einstein (flip-vert einstein)))
-
-(define einstein4 (below einstein2 einstein2))
-
 (define (flipped-pairs painter)
   (let ((painter2 (beside painter (flip-vert painter))))
     (below painter2 painter2)))
@@ -47,3 +42,45 @@
     (let ((top (beside (tl painter) (tr painter)))
       (bottom (beside (bl painter) (br painter))))
     (below bottom top))))
+
+j
+
+(define (split t1 t2)
+  (lambda (painter n)
+    (define (f t)
+      (if [= n 0]
+          painter
+          (let ((smaller (f  (- n 1))))
+            (t1 painter (t2 smaller smaller)))))
+    (f n)))
+
+(require "../Exercise/2.47.rkt")
+(require "../Exercise/2.46.rkt")
+
+(define (transform-painter painter origin corner1 corner2)
+  (lambda (frame)
+    (let ((m (frame-coord-map frame)))
+      (let ((new-origin (m origin)))
+        (painter
+         (make-frame new-origin
+                     (sub-vect (m corner1) new-origin)
+                     (sub-vect (m corner2) new-origin)))))))
+
+(define (shrink-to-upper-right painter)
+  (transform-painter painter
+                     (make-vect 0.5 0.5)
+                     (make-vect 1.0 0.5)
+                     (make-vect 0.5 1.0)))
+
+(define (rotate90 painter)
+  (transform-painter painter
+                     (make-vect 1.0 1.0)
+                     (make-vect 1.0 1.0)
+                     (make-vect 0.0 0.0)))
+
+(define (squash-inwards painter)
+  (transform-painter painter
+                     (make-vect 0.0 0.0)
+                     (make-vect 0.65 0.35)
+                     (make-vect 0.35 0.65)))
+
