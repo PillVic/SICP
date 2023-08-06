@@ -5,6 +5,7 @@
 
 (define eins einstein)
 
+
 (define (flipped-pairs painter)
   (let ((painter2 (beside painter (flip-vert painter))))
     (below painter2 painter2)))
@@ -43,7 +44,6 @@
       (bottom (beside (bl painter) (br painter))))
     (below bottom top))))
 
-j
 
 (define (split t1 t2)
   (lambda (painter n)
