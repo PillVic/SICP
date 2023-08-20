@@ -23,21 +23,62 @@
   (set-cdr! queue item))
 
 
-(define (insert-front-deque! queue item)
+(define (insert-rear-deque! queue item)
   (let ((new-pair (cons item '())))
     (cond ([empty-deque? queue]
-           (set-front-ptr! queue new-pair)
-           (set-rear-ptr! queue new-pair)
-           queue)
+           (set-front-ptr! queue new-pair) (set-rear-ptr! queue new-pair))
           (else
            (set-cdr! (rear-deque queue) new-pair)
-           (set-rear-ptr! queue new-pair)
-           queue))))
+           (set-rear-ptr! queue new-pair)))))
 
-(define (delete-rear-deque! queue)
+(define (delete-front-deque! queue)
   (cond ([empty-deque? queue] (error "ERROR delete a empty queue" queue))
         (else
          (set-front-ptr! queue (cdr (front-deque queue)))
          queue)))
 
-;;;下面是新功能，尾端插入， 头部删除
+;;;下面是新功能，尾端删除，头部插入
+
+(define (insert-front-deque! queue item)
+  (let ((new-pair (cons item '())))
+    (cond ([empty-deque? queue]
+           (set-front-ptr! queue new-pair)
+           (set-rear-ptr! queue new-pair))
+          (else
+           (set-cdr! new-pair (front-deque queue))
+           (set-front-ptr! queue new-pair)))))
+
+;;;尾端删除暂时先只用O(N)的实现
+(define (delete-rear-deque! queue)
+  (define (iter rest)
+    (if [null? (cddr rest)]
+        (let ((top-element (car rest)))
+          (set-cdr! rest '()))
+        (iter (cdr rest))))
+  (iter (front-deque queue)))
+
+
+
+(define (print-deque queue)
+  (define (loop rest)
+    (if [null? rest]
+        (display "$")
+        (begin (display (car rest)) (display "->")
+               (loop (cdr rest)))))
+  (loop (front-deque queue)))
+
+
+;;测试代码
+(define dq (make-deque))
+
+(insert-rear-deque! dq 0)
+(insert-rear-deque! dq 1)
+(insert-rear-deque! dq 2)
+(insert-rear-deque! dq 3)
+
+(insert-front-deque! dq "a")
+
+(delete-rear-deque! dq)
+
+
+(print-deque dq)
