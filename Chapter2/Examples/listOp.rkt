@@ -3,7 +3,7 @@
 (define (list-ref items n)
   (if (= n 0)
       (car items)
-      (list-ref (cdr items) (_ n 1))))
+      (list-ref (cdr items) (- n 1))))
 
 (define (length-r items)
   (if (null? items)
