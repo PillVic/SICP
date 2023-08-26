@@ -1,6 +1,6 @@
-#lang racket
+#lang sicp
 
-(provide  add-vect sub-vect scale-vect xcor-vect ycor-vect)
+(#%provide  add-vect sub-vect scale-vect xcor-vect ycor-vect)
 
 (define (make-vect x y)
   (cons x y))
@@ -26,11 +26,3 @@
 (define (scale-vect s v)
   (make-vect (* s (xcor-vect v))
              (* s (ycor-vect v))))
-
-;;;test
-
-(define v1 (make-vect 1 2))
-(define v2 (scale-vect 3 v1))
-(display (add-vect v1 v2))
-(display (sub-vect v1 v2))
-(newline)

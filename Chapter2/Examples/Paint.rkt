@@ -1,9 +1,15 @@
-#lang racket
+#lang sicp
 
 ;;; include the paint method
-( require ( planet "sicp.ss" ( "soegaard" "sicp.plt" 2 1)))
+(#%require ( planet "sicp.ss" ( "soegaard" "sicp.plt" 2 1)))
 
-(define eins einstein)
+(#%require "../Exercise/2.44.rkt")
+(#%require "../Exercise/2.45.rkt")
+(#%require "../Exercise/2.46.rkt")
+(#%require "../Exercise/2.47.rkt")
+
+(#%provide flipped-pairs right-split corner-split square-of-four split
+           transform-painter shrink-to-upper-right rotate90 squash-inwards)
 
 
 (define (flipped-pairs painter)
@@ -16,11 +22,6 @@
       (let ((smaller (right-split painter (- n 1))))
         (beside painter (below smaller smaller)))))
 
-(define (up-split painter n)
-  (if [= n 0]
-      painter
-      (let ((smaller (up-split painter (- n 1))))
-        (below painter (beside smaller smaller)))))
 
 (define (corner-split painter n)
   (if [= n 0]
@@ -35,27 +36,13 @@
 
 (define (square-limit painter n)
   (let ((quarter (corner-split painter n)))
-    (let ((half (beside (flip-horiz quarter) quarter)))
-      (below (flip-vert half) half))))
+    (let ((half (beside (flip-horiz quarter) quarter))) (below (flip-vert half) half))))
 
 (define (square-of-four tl tr bl br)
   (lambda (painter)
     (let ((top (beside (tl painter) (tr painter)))
       (bottom (beside (bl painter) (br painter))))
     (below bottom top))))
-
-
-(define (split t1 t2)
-  (lambda (painter n)
-    (define (f t)
-      (if [= n 0]
-          painter
-          (let ((smaller (f  (- n 1))))
-            (t1 painter (t2 smaller smaller)))))
-    (f n)))
-
-(require "../Exercise/2.47.rkt")
-(require "../Exercise/2.46.rkt")
 
 (define (transform-painter painter origin corner1 corner2)
   (lambda (frame)
@@ -84,3 +71,5 @@
                      (make-vect 0.65 0.35)
                      (make-vect 0.35 0.65)))
 
+
+(paint einstein)
