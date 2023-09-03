@@ -1,5 +1,7 @@
 #lang sicp
 
+(#%provide filter accumulate enumerate-tree)
+
 ;conditon
 (define (filter predicate sequence)
   (cond ([null? sequence] nil)

@@ -1,5 +1,5 @@
-#lang racket
-(require "../Examples/Set.rkt")
+#lang sicp
+(#%require "../Examples/Set.rkt")
 
 (define (union-set s1 s2)
   (cond ([null? s2] s1)

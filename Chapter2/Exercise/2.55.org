@@ -1,0 +1,10 @@
+
+
+#+BEGIN_SRC racket
+  (car ''abacadabra))
+#+END_SRC
+  对于所有的 '符号， 都可看作一个quote函数操作的简写， 于是，在展开后，表达式即为
+  #+BEGIN_SRC racket
+    (car (quote 'abracadabra)))
+  #+END_SRC
+  从内往外看, 先将 =abracadabra= 取消求值，记录符号，然后再次 =quote= , 对一个元素进行 =quote= ，意味表 ,结果c变为存储一个 =abracadabra= 符号的表

@@ -1,8 +1,8 @@
-#lang racket
+#lang sicp
 
 ;;implement set as unsorted list
 
-(provide element-of-set? adjoin-set intersection-set)
+(#%provide element-of-set? adjoin-set intersection-set)
 
 ;;judge whether the element is in the set or not
 (define (element-of-set? x set1)

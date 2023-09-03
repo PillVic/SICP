@@ -2,6 +2,7 @@
 
 (#%require "../Examples/TreeSet.rkt")
 
+
 (define (tree->list-1 tree)
   (if [null? tree]
       '()
@@ -19,20 +20,9 @@
                                           result-list)))))
   (copy-to-list tree '()))
 
+(define tree->list tree->list-2)
 
-;;for test
-
-(#%require "./2.64.rkt")
-
-(define test-list (list 1 3 5 7 9))
-(define test-tree (list->tree test-list))
-
-(tree->list-1 test-tree)
-
-(tree->list-2 test-tree)
-
-
-
+(#%provide tree->list)
 
 ;;;两个程序在什么时候表现不同
 ;只要是排序树，两者的执行结果都应当相同
