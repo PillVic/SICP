@@ -1,6 +1,7 @@
-;; The first three lines of this file were inserted by DrRacket. They record metadata
-;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-beginner-reader.ss" "lang")((modname example) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
+#lang sicp
+
+(#%provide square)
+
 (define (my-abs x)
   (cond ((< x 0) (- x))
 	(else x)))
@@ -11,7 +12,7 @@
       (sqrt-iter (improve guess x)
 		 x)))
 
-(define (square x) 
+(define (square x)
   (* x x))
 
 (define (improve guess x)

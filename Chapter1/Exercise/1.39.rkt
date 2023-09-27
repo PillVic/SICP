@@ -2,6 +2,8 @@
 
 ;;;;;;;;;;iteration style
 
+(#%provide pow)
+
 (define (cont-frac-iter n d k)
   (define (iter t result)
     (if (> t 0)
@@ -32,10 +34,3 @@
   (cont-frac (lambda(i) (if (= i 1) x (* -1 x x)))
              (lambda(i) (- (* 2 i) 1))
              k))
-
-
-;;;;;;test
-(tan-cf 10 100)
-(tan 10)
-(tan 37)
-(tan-cf 37 100)

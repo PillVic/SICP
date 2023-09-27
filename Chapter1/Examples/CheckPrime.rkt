@@ -1,8 +1,7 @@
 #lang racket
 
-(define square
-  (lambda (x)
-    (* x x)))
+(#%require "example.rkt")
+(#%provide prime?)
 
 (define (devides? a b)
   (= (remainder b a) 0))

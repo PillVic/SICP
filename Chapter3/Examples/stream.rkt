@@ -1,5 +1,8 @@
 #lang sicp
 
+(#%require "../../Chapter2/Examples/TreeSet.rkt")
+(#%require "../../Chapter1/Examples/CheckPrime.rkt")
+
 (#%provide stream-car stream-cdr cons-stream stream-ref
            stream-map stream-for-each stream-filter
            display-stream stream-enumerate-interval
@@ -43,20 +46,61 @@
   (newline)
   (display e))
 
-(define (memo-proc proc)
-  (let ([already-run? false]
-        [result false])
-    (lambda ()
-      (if [not already-run?]
-          (begin (set! already-run? true)
-                 (set! result (proc))
-                 result)
-          result))))
-
-
-
 (define (stream-enumerate-interval low high)
   (if [> low high]
       the-empty-stream
       (cons-stream low
                    (stream-enumerate-interval (+ low 1) high))))
+
+;;from lecture
+
+(define (stream-accumulate combiner init-val s)
+  (if [stream-null? s]
+      init-val
+      (combiner (stream-car s)
+                (stream-accumulate combiner
+                                   init-val
+                                   (stream-cdr s)))))
+
+(define (stream-append s1 s2)
+  (if [stream-null? s1]
+      s2
+      (cons-stream
+       (stream-car s1)
+       (stream-append (stream-cdr s1)
+                      s2))))
+
+(define (enumerate-tree tree)
+  (if [(not (pair? tree))]
+      (cons-stream tree
+                   the-empty-stream)
+      (stream-append
+       (enumerate-tree (left-branch tree))
+       (enumerate-tree (right-branch tree)))))
+
+(define (flatten stream-of-stream)
+  (stream-accumulate stream-append
+                     the-empty-stream
+                     stream-of-stream))
+
+(define (flatmap f s)
+  (flatten (stream-map f s)))
+
+(define (prime-sum-pairs n)
+  (stream-map
+   (lambda (p)
+     (list (car p)
+           (cadr p)
+           (+ (car p) (cadr p))))
+   (stream-filter
+    (lambda (p)
+      (prime? (+ (car p) (cadr p))))
+    (flatmap
+     (lambda (i)
+       (stream-map
+        (lambda (j) (list i j))
+        (stream-enumerate-interval 1 (- i 1))))
+     (stream-enumerate-interval 1 n)))))
+
+;;collect
+;https://github.com/mattdsteele/sicp/blob/master/library/collect.scm
